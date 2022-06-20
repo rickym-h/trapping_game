@@ -2,20 +2,27 @@ const container = document.querySelector(".game-container");
 
 
 function initialiseGame() {
-    for (let row = 0; row < 11; row++) {
+    for (let row = 0; row < 13; row++) {
         let myRowOfDivs = document.createElement("div");
         myRowOfDivs.classList.toggle("div-row")
-        for (let col = 0; col < 11; col++) {
+        for (let col = 0; col < 12; col++) {
             let myNode = document.createElement("div");
             myNode.classList.toggle("empty-cell");
             myNode.id = row.toString() + "-" + col.toString();
+
+            if (row === 0 || row === 12) {
+                myNode.classList.add("null-cell");
+
+            }
             //myNode.innerText = myNode.id;
 
             myNode.addEventListener("click",function(e) {
                 if ((!e.target.classList.contains("capybara") && (!e.target.hasChildNodes()))) {
                     e.target.classList.toggle("wall-cell")
+                } else {
+                    return;
                 }
-                //todo move capybara
+
                 let x = document.querySelector(".capybara").parentNode;
                 let split = x.id.split("-")
                 let potentialNodes = getAdjacentNodes(split[0], split[1])
@@ -37,14 +44,15 @@ function initialiseGame() {
             myRowOfDivs.appendChild(myNode);
         }
         if (row % 2 === 0) {
-            myRowOfDivs.childNodes[0].classList.toggle("null-cell")
+            myRowOfDivs.childNodes[0].classList.add("null-cell")
         }
         else {
             myRowOfDivs.childNodes[myRowOfDivs.childNodes.length-1].classList.toggle("null-cell")
         }
         container.appendChild(myRowOfDivs);
     }
-    putCapybaraInCell(5,5)
+    putCapybaraInCell(6,6)
+    // todo find 17 random cells to turn into walls
 }
 
 
