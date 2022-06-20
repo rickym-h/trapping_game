@@ -7,7 +7,13 @@ for (let row = 0; row < 11; row++) {
         let myNode = document.createElement("div");
         myNode.classList.toggle("empty-cell");
         myNode.id = row.toString() + col.toString();
-        myNode.innerText = myNode.id;
+        //myNode.innerText = myNode.id;
+
+        myNode.addEventListener("click",function(e) {
+            console.log(e.target);
+            e.target.classList.toggle("wall-cell")
+        })
+
         myRowOfDivs.appendChild(myNode);
     }
     if (row % 2 === 0) {
@@ -28,6 +34,11 @@ function isNodeValid(x) {
     if (x.classList.contains("null-cell")) {
         return false;
     }
+    if (x.classList.contains("wall-cell")) {
+        return false;
+    }
+
+
     return true;
 }
 
@@ -55,13 +66,25 @@ function getAdjacentNodes(row,col) {
     // Filter out null and wall cells
     myNodeList = myNodeList.filter(x=>isNodeValid(x))
 
-    for (let i = 0; i < myNodeList.length; i++ ) {
-
-        console.log(myNodeList[i]);
-        myNodeList[i].classList.toggle("wall-cell");
-    }
     return myNodeList;
 }
 
+function putCapybaraInCell(row,col) {
+    const previousCell = document.querySelector(".capybara")
+    if (previousCell) {
+        previousCell.remove();
+    }
+
+    const newCell = document.getElementById(row.toString() + col.toString());
+    let myCapybara = document.createElement("div");
+    myCapybara.classList.toggle("capybara");
+    newCell.appendChild(myCapybara);
+
+}
 
 getAdjacentNodes(6,1)
+
+putCapybaraInCell(3,5)
+putCapybaraInCell(1,6)
+putCapybaraInCell(2,4)
+putCapybaraInCell(4,2)
