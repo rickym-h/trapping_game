@@ -11,7 +11,10 @@ for (let row = 0; row < 11; row++) {
 
         myNode.addEventListener("click",function(e) {
             console.log(e.target);
-            e.target.classList.toggle("wall-cell")
+            if ((!e.target.classList.contains("capybara") && (!e.target.hasChildNodes()))) {
+                e.target.classList.toggle("wall-cell")
+            }
+            //todo move capybara
         })
 
         myRowOfDivs.appendChild(myNode);
