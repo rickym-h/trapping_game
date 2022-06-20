@@ -53,8 +53,31 @@ function initialiseGame() {
     }
     putCapybaraInCell(6,6)
     // todo find 17 random cells to turn into walls
+
+    console.log("test")
+    let possibleNodes = Array.from(document.getElementsByClassName("empty-cell"));
+    possibleNodes = possibleNodes.filter(x=>!x.firstChild);
+    let nullNodes = Array.from(document.getElementsByClassName("null-cell"));
+    possibleNodes = possibleNodes.filter(node => {
+        return !nullNodes.includes(node);
+
+    })
+    possibleNodes = shuffleArray(possibleNodes);
+    for (let i = 0; i< 17; i++) {
+        possibleNodes[i].classList.toggle("wall-cell");
+    }
+
 }
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 
 function isNodeValid(x) {
     if (x === null) {
