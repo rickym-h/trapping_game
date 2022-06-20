@@ -22,6 +22,7 @@ function initialiseGame() {
                 console.log(potentialNodes)
                 if (potentialNodes.length === 0){
                     alert("YOU WIN!!")
+                    location.reload();
                     return;
                 }
 
