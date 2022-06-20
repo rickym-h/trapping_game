@@ -20,13 +20,18 @@ for (let row = 0; row < 11; row++) {
 }
 
 
+function isNodeValid(x) {
+    if (x === null) {
+        return false;
 
-function getAdjacentNodes(id) {
-    if (typeof id === "number") {
-        id = id.toString()
     }
-    let row = Number(id[0]);
-    let col = Number(id[1]);
+    if (x.classList.contains("null-cell")) {
+        return false;
+    }
+    return true;
+}
+
+function getAdjacentNodes(row,col) {
 
     let myNodeList = [];
 
@@ -47,7 +52,8 @@ function getAdjacentNodes(id) {
         myNodeList.push(document.getElementById((row+1).toString() + (col+1).toString()));
     }
 
-    myNodeList.filter(x => !!x);
+    // Filter out null and wall cells
+    myNodeList = myNodeList.filter(x=>isNodeValid(x))
 
     for (let i = 0; i < myNodeList.length; i++ ) {
 
@@ -58,4 +64,4 @@ function getAdjacentNodes(id) {
 }
 
 
-getAdjacentNodes(26)
+getAdjacentNodes(6,1)
